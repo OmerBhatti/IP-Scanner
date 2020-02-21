@@ -12,7 +12,7 @@ else
         ping $1.$ip -c 1 | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" >> $fileName &
     done
     size=$(stat -c%s "$fileName")
-
+    sleep 1
     if [ $size -ne 37 ]
     then
 	cat $fileName
