@@ -1,23 +1,23 @@
 #!/bin/bash
-
+fileName=".IPs.list"
 if [ "$1" == "" ]
 then
     echo "Argument Missing!!!!"
     echo "Syntax: ./ipScan.sh 192.168.0"
 else
-    echo "Following IP's are online currently:" > .ips.list
+    echo "Following IP's are online currently:" > $fileName
 
     for ip in `seq 1 254`
         do
-        ping $1.$ip -c 1 | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" >> .ips.list &
+        ping $1.$ip -c 1 | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" >> $fileName &
     done
-    size=$(stat -c%s ".ips.list")
+    size=$(stat -c%s "$fileName")
 
     if [ $size -ne 37 ]
     then
-	cat .ips.list
+	cat $fileName
     else
-	rm .ips.list
+	rm $fileName
 	echo "Sorry!!!"
 	echo "Nothing found against IP = $1.X"
     fi
