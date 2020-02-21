@@ -5,11 +5,10 @@ then
     echo "Argument Missing!!!!"
     echo "Syntax: ./ipScan.sh 192.168.0"
 else
-    echo "Following IP's are online currently:" > $fileName
-
+    echo "Following IP's are currently Online :" > $fileName
     for ip in `seq 1 254`
         do
-        ping $1.$ip -c 1 | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" >> $fileName &
+        ping $1.$ip -c 1 | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" >> $fileName & 
     done
     size=$(stat -c%s "$fileName")
     sleep 1
